@@ -12,7 +12,13 @@ app.innerHTML = `
     <div class="inner">
       <h1>수행평가 평가계획 도우미</h1>
       <span class="badge">2015·2022 개정 동시 지원</span>
-      <p class="subtitle">교수학습 및 평가운영계획 3~6번(성취기준·반영비율·수행평가 세부기준)을 설계하고 HWPX·엑셀로 내보냅니다.</p>
+      <p class="subtitle">교수학습 및 평가운영계획 4~6번(반영비율·수행평가 세부기준)을 설계하고 한글(HWPX)·엑셀로 내보냅니다.</p>
+      <nav class="app-nav">
+        <a href="#">① 편집기</a>
+        <a href="#semester">② 학기 단위 성취수준</a>
+        <a href="#ai">③ AI 추천·프롬프트</a>
+        <a href="#preview">④ 미리보기·내보내기</a>
+      </nav>
     </div>
   </header>
   <main class="app-main" id="main"></main>

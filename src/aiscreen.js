@@ -45,7 +45,9 @@ export async function renderAiScreen(el) {
   if (!subjectData || !plan.standards.length) {
     el.innerHTML = `<div class="card"><h2>AI 추천·프롬프트</h2>
       <div class="notice notice-warn">먼저 편집기에서 과목·성취기준·수행평가 영역을 설정하세요.</div>
+      ${gasSettingsHtml()}
       <p><a href="#">← 편집기로 돌아가기</a></p></div>`;
+    bindGasSettings(el);
     return;
   }
 

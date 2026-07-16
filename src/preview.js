@@ -2,6 +2,7 @@
 import { getPlan, getSubjectData, esc } from './editor.js';
 import { loadSubject } from './data.js';
 import { downloadXlsx } from './export-xlsx.js';
+import { downloadHwpx } from './export-hwpx.js';
 
 const TD = 'border:1px solid #333;padding:4px 8px;text-align:center;vertical-align:middle;font-size:10pt';
 const TH = TD + ';background:#d9e5f1;font-weight:bold';
@@ -43,7 +44,9 @@ export async function renderPreview(el) {
       <h2>미리보기·내보내기 — ${esc(plan.meta.schoolYear)}학년도 ${plan.meta.semester}학기 ${plan.meta.grade}학년 ${esc(plan.meta.subject)}</h2>
       <p>각 표의 "복사" 버튼을 누르면 서식이 유지된 채 복사되어, 한글(HWP) 문서에 표로 붙여넣을 수 있습니다.</p>
       <p><button class="btn btn-primary" id="pv-xlsx">엑셀(xlsx) 다운로드 — 총괄표+채점기준표</button>
+      <button class="btn btn-navy" id="pv-hwpx">한글(HWPX) 다운로드 — 4·5·6번 표만 담은 문서</button>
       <span id="pv-status" style="font-size:14px"></span></p>
+      <p style="font-size:13px;color:var(--gray-600)">HWPX는 학교 양식 서식 그대로 4·5·6번 표만 담은 문서입니다(자간 축소 해제). 본 계획서의 해당 위치에 복사해 넣으세요. 4번 표는 양식 구조상 정기시험 2회·수행평가 3영역까지 지원하며, 생성 후 반드시 한글에서 열어 확인하세요.</p>
     </div>
     ${sections.map(([title, html], i) => `
       <div class="card">
@@ -72,6 +75,17 @@ export async function renderPreview(el) {
   el.querySelector('#pv-xlsx').addEventListener('click', () => {
     downloadXlsx(plan, subjectData, stds);
     el.querySelector('#pv-status').textContent = 'xlsx 파일이 다운로드되었습니다.';
+  });
+
+  el.querySelector('#pv-hwpx').addEventListener('click', async () => {
+    const st = el.querySelector('#pv-status');
+    st.textContent = 'HWPX 생성 중…';
+    try {
+      await downloadHwpx(plan, subjectData, stds);
+      st.textContent = 'HWPX 다운로드 완료 — 한글에서 열어 확인하세요.';
+    } catch (e) {
+      st.textContent = `HWPX 생성 실패: ${e.message}`;
+    }
   });
 }
 
