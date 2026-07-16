@@ -1,6 +1,8 @@
 // 앱 진입점 — 셸(헤더·메인·푸터) 렌더와 해시 라우팅
 import { renderReview } from './review.js';
 import { renderEditor } from './editor.js';
+import { renderSemester } from './semester.js';
+import { renderAiScreen } from './aiscreen.js';
 
 const app = document.getElementById('app');
 
@@ -25,7 +27,13 @@ async function route() {
   try {
     if (hash === 'review') {
       await renderReview(main);
-    } else if (hash === 'semester' || hash === 'ai' || hash === 'preview') {
+    } else if (hash === 'semester') {
+      await renderEditor(document.createElement('div'));  // plan·subjectData 초기화 보장
+      await renderSemester(main);
+    } else if (hash === 'ai') {
+      await renderEditor(document.createElement('div'));
+      await renderAiScreen(main);
+    } else if (hash === 'preview') {
       main.innerHTML = `<div class="card"><h2>준비 중</h2>
         <p>이 기능은 다음 단계에서 열립니다. <a href="#">← 편집기로 돌아가기</a></p></div>`;
     } else {
