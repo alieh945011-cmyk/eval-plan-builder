@@ -1,5 +1,6 @@
 // 앱 진입점 — 셸(헤더·메인·푸터) 렌더와 해시 라우팅
 import { renderReview } from './review.js';
+import { renderEditor } from './editor.js';
 
 const app = document.getElementById('app');
 
@@ -24,13 +25,11 @@ async function route() {
   try {
     if (hash === 'review') {
       await renderReview(main);
+    } else if (hash === 'semester' || hash === 'ai' || hash === 'preview') {
+      main.innerHTML = `<div class="card"><h2>준비 중</h2>
+        <p>이 기능은 다음 단계에서 열립니다. <a href="#">← 편집기로 돌아가기</a></p></div>`;
     } else {
-      main.innerHTML = `
-        <div class="card">
-          <h2><span class="step-no">1</span>기본 정보</h2>
-          <p>학년을 고르면 교육과정(2015/2022 개정)이 자동으로 결정되고, 과목을 고르면 성취기준이 불러와집니다.</p>
-          <div class="notice notice-warn">공사 중 — 평가계획 편집기(Phase 2)가 이 자리에 들어갑니다.</div>
-        </div>`;
+      await renderEditor(main);
     }
   } catch (e) {
     main.innerHTML = `<div class="notice notice-error">오류: ${e.message}</div>`;
