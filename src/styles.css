@@ -1,0 +1,222 @@
+/* 디자인 토큰과 공통 스타일 — 딥네이비+앰버 팔레트, Pretendard Variable */
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  src: url('/fonts/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
+  font-display: swap;
+}
+
+:root {
+  /* 팔레트: 조합 A (딥네이비 / 아이스화이트 / 앰버) */
+  --navy-900: #002a4d;
+  --navy-700: #00457F;
+  --navy-500: #1565a8;
+  --navy-100: #d4e6f5;
+  --ice: #EDF5FA;
+  --amber-600: #e08d00;
+  --amber-500: #FFA723;
+  --amber-100: #fff1da;
+  --white: #ffffff;
+  --gray-900: #1c2733;
+  --gray-600: #51606f;
+  --gray-300: #c3cfda;
+  --gray-100: #eef2f6;
+  --red-500: #d64545;
+  --green-600: #1d8a4e;
+
+  /* 등급 색 (성취수준 카드) */
+  --grade-a: #00457F;
+  --grade-b: #1565a8;
+  --grade-c: #3d86c6;
+  --grade-d: #7aa9cf;
+  --grade-e: #a8c4d9;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 2px 10px rgba(0, 42, 77, 0.08);
+  --shadow-pop: 0 6px 24px rgba(0, 42, 77, 0.16);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Malgun Gothic', sans-serif;
+  background: var(--ice);
+  color: var(--gray-900);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 헤더 ─────────────────────────── */
+.app-header {
+  background: var(--navy-700);
+  color: var(--white);
+  padding: 20px 24px;
+}
+.app-header .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.app-header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.app-header .badge {
+  background: var(--amber-500);
+  color: var(--navy-900);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.app-header .subtitle {
+  width: 100%;
+  font-size: 14px;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* ── 레이아웃 ─────────────────────── */
+.app-main {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+.app-footer {
+  background: var(--navy-900);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  text-align: center;
+  padding: 16px;
+}
+
+/* ── 카드 ─────────────────────────── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--navy-700);
+}
+.card h2 .step-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--navy-700);
+  color: var(--white);
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+/* ── 버튼 ─────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.05s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--amber-500); color: var(--navy-900); }
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-navy { background: var(--navy-700); color: var(--white); }
+.btn-ghost {
+  background: transparent;
+  color: var(--navy-700);
+  border: 1.5px solid var(--gray-300);
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── 폼 ───────────────────────────── */
+label.field {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-600);
+}
+input[type="text"], input[type="number"], select, textarea {
+  font: inherit;
+  width: 100%;
+  margin-top: 5px;
+  padding: 9px 12px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--gray-900);
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--navy-500);
+  outline-offset: 0;
+  border-color: var(--navy-500);
+}
+
+/* ── 표 ───────────────────────────── */
+.tbl-wrap { overflow-x: auto; }
+table.plan {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  background: var(--white);
+}
+table.plan th, table.plan td {
+  border: 1px solid var(--gray-300);
+  padding: 7px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+table.plan th {
+  background: var(--navy-100);
+  color: var(--navy-900);
+  font-weight: 700;
+}
+table.plan td.left { text-align: left; }
+
+/* ── 알림/검증 메시지 ─────────────── */
+.notice {
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 14px;
+  margin: 10px 0;
+}
+.notice-warn { background: var(--amber-100); color: #7a5200; }
+.notice-error { background: #fdecec; color: var(--red-500); }
+.notice-ok { background: #e8f6ee; color: var(--green-600); }
