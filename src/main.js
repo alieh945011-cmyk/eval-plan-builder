@@ -3,6 +3,7 @@ import { renderReview } from './review.js';
 import { renderEditor } from './editor.js';
 import { renderSemester } from './semester.js';
 import { renderAiScreen } from './aiscreen.js';
+import { renderPreview } from './preview.js';
 
 const app = document.getElementById('app');
 
@@ -34,8 +35,8 @@ async function route() {
       await renderEditor(document.createElement('div'));
       await renderAiScreen(main);
     } else if (hash === 'preview') {
-      main.innerHTML = `<div class="card"><h2>준비 중</h2>
-        <p>이 기능은 다음 단계에서 열립니다. <a href="#">← 편집기로 돌아가기</a></p></div>`;
+      await renderEditor(document.createElement('div'));
+      await renderPreview(main);
     } else {
       await renderEditor(main);
     }
