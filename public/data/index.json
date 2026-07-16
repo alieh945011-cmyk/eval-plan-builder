@@ -1,0 +1,472 @@
+{
+ "2022": [
+  {
+   "subject": "과학",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 23,
+   "standards": 87
+  },
+  {
+   "subject": "국어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 13,
+   "standards": 51
+  },
+  {
+   "subject": "기술가정",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 4,
+   "standards": 52
+  },
+  {
+   "subject": "도덕",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 4,
+   "standards": 22
+  },
+  {
+   "subject": "미술",
+   "levels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "domains": 3,
+   "standards": 13
+  },
+  {
+   "subject": "보건",
+   "levels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "domains": 5,
+   "standards": 26
+  },
+  {
+   "subject": "사회",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 24,
+   "standards": 74
+  },
+  {
+   "subject": "생활독일어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 16
+  },
+  {
+   "subject": "생활러시아어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 15
+  },
+  {
+   "subject": "생활베트남어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 17
+  },
+  {
+   "subject": "생활스페인어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 18
+  },
+  {
+   "subject": "생활아랍어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 16
+  },
+  {
+   "subject": "생활일본어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 17
+  },
+  {
+   "subject": "생활중국어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 17
+  },
+  {
+   "subject": "생활프랑스어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 16
+  },
+  {
+   "subject": "수학",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 4,
+   "standards": 60
+  },
+  {
+   "subject": "역사",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 13,
+   "standards": 40
+  },
+  {
+   "subject": "영어",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 2,
+   "standards": 21
+  },
+  {
+   "subject": "음악",
+   "levels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "domains": 3,
+   "standards": 13
+  },
+  {
+   "subject": "정보",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 5,
+   "standards": 25
+  },
+  {
+   "subject": "진로",
+   "levels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "domains": 3,
+   "standards": 14
+  },
+  {
+   "subject": "체육",
+   "levels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "domains": 3,
+   "standards": 51
+  },
+  {
+   "subject": "한문",
+   "levels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "domains": 2,
+   "standards": 12
+  },
+  {
+   "subject": "환경",
+   "levels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "domains": 5,
+   "standards": 15
+  }
+ ],
+ "2015": [
+  {
+   "subject": "과학",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 48,
+   "standards": 92
+  },
+  {
+   "subject": "국어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 10,
+   "standards": 51
+  },
+  {
+   "subject": "기술가정",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 1,
+   "standards": 56
+  },
+  {
+   "subject": "도덕",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 4,
+   "standards": 23
+  },
+  {
+   "subject": "미술",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 3,
+   "standards": 16
+  },
+  {
+   "subject": "사회",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 36,
+   "standards": 73
+  },
+  {
+   "subject": "생활독일어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 34
+  },
+  {
+   "subject": "생활러시아어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 32
+  },
+  {
+   "subject": "생활베트남어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 32
+  },
+  {
+   "subject": "생활스페인어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 35
+  },
+  {
+   "subject": "생활아랍어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 37
+  },
+  {
+   "subject": "생활일본어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 42
+  },
+  {
+   "subject": "생활중국어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 39
+  },
+  {
+   "subject": "생활프랑스어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 35
+  },
+  {
+   "subject": "수학",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 5,
+   "standards": 68
+  },
+  {
+   "subject": "역사",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 9,
+   "standards": 46
+  },
+  {
+   "subject": "영어",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 4,
+   "standards": 34
+  },
+  {
+   "subject": "음악",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 1,
+   "standards": 12
+  },
+  {
+   "subject": "체육",
+   "levels": [
+    "상",
+    "중",
+    "하"
+   ],
+   "domains": 1,
+   "standards": 54
+  }
+ ]
+}
