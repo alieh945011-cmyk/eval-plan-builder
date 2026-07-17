@@ -21,7 +21,7 @@ export async function renderPreview(el) {
   }
   if (!subjectData) {
     el.innerHTML = `<div class="card"><h2>미리보기</h2>
-      <div class="notice notice-warn">먼저 편집기에서 과목을 선택하세요.</div><p><a href="#">← 편집기</a></p></div>`;
+      <div class="notice notice-warn">먼저 편집기에서 과목을 선택하세요.</div><p><a href="#editor">← 편집기</a></p></div>`;
     return;
   }
   const is2022 = plan.meta.curriculum === '2022';
@@ -54,7 +54,7 @@ export async function renderPreview(el) {
           <button class="btn btn-ghost" data-copy="${i}">이 표 복사</button></h2>
         <div class="tbl-wrap" id="pv-tbl-${i}">${html}</div>
       </div>`).join('')}
-    <div class="card"><p><a href="#">← 편집기</a> · <a href="#semester">학기 단위 성취수준</a> · <a href="#ai">AI 추천</a></p></div>`;
+    <div class="card"><p><a href="#editor">← 편집기</a> · <a href="#semester">학기 단위 성취수준</a> · <a href="#ai">AI 추천</a></p></div>`;
 
   el.querySelectorAll('[data-copy]').forEach(btn => {
     btn.addEventListener('click', async () => {

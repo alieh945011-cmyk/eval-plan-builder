@@ -18,7 +18,7 @@ export async function renderSemester(el) {
     el.innerHTML = `<div class="card"><h2>학기 단위 성취수준</h2>
       <div class="notice notice-warn">학기 단위 성취수준은 2022 개정(1·2학년) 전용입니다. 3학년(2015 개정)은 상·중·하 평가기준을 그대로 사용합니다.</div>
       ${gasSettingsHtml()}
-      <p><a href="#">← 편집기로 돌아가기</a></p></div>`;
+      <p><a href="#editor">← 편집기로 돌아가기</a></p></div>`;
     bindGasSettings(el);
     return;
   }
@@ -26,7 +26,7 @@ export async function renderSemester(el) {
     el.innerHTML = `<div class="card"><h2>학기 단위 성취수준</h2>
       <div class="notice notice-warn">먼저 편집기에서 과목과 이번 학기 성취기준을 선택하세요.</div>
       ${gasSettingsHtml()}
-      <p><a href="#">← 편집기로 돌아가기</a></p></div>`;
+      <p><a href="#editor">← 편집기로 돌아가기</a></p></div>`;
     bindGasSettings(el);
     return;
   }
@@ -68,7 +68,7 @@ export async function renderSemester(el) {
             <td><b>${lv}</b></td><td class="left">${esc(txt)}</td></tr>`).join('');
         }).join('')}
       </table></div>
-      <p><a href="#">← 편집기</a> · <a href="#preview">미리보기·내보내기 →</a></p>
+      <p><a href="#editor">← 편집기</a> · <a href="#preview">미리보기·내보내기 →</a></p>
     </div>`;
 
   bindGasSettings(el);

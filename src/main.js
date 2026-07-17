@@ -4,6 +4,7 @@ import { renderEditor } from './editor.js';
 import { renderSemester } from './semester.js';
 import { renderAiScreen } from './aiscreen.js';
 import { renderPreview } from './preview.js';
+import { renderIdeate } from './ideate.js';
 
 const app = document.getElementById('app');
 
@@ -14,7 +15,8 @@ app.innerHTML = `
       <span class="badge">2015·2022 개정 동시 지원</span>
       <p class="subtitle">교수학습 및 평가운영계획 4~6번(반영비율·수행평가 세부기준)을 설계하고 한글(HWPX)·엑셀로 내보냅니다.</p>
       <nav class="app-nav">
-        <a href="#">① 편집기</a>
+        <a href="#">⓪ 구상</a>
+        <a href="#editor">① 편집기</a>
         <a href="#semester">② 학기 단위 성취수준</a>
         <a href="#ai">③ AI 추천·프롬프트</a>
         <a href="#preview">④ 미리보기·내보내기</a>
@@ -43,8 +45,11 @@ async function route() {
     } else if (hash === 'preview') {
       await renderEditor(document.createElement('div'));
       await renderPreview(main);
-    } else {
+    } else if (hash === 'editor') {
       await renderEditor(main);
+    } else {
+      await renderEditor(document.createElement('div'));  // plan 초기화 보장
+      await renderIdeate(main);
     }
   } catch (e) {
     main.innerHTML = `<div class="notice notice-error">오류: ${e.message}</div>`;

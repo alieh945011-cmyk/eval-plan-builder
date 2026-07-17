@@ -74,6 +74,37 @@ ${areas}
 - AI 대필이 어려운, 수업 중 과정 확인이 가능한 과제를 우선한다.`;
 }
 
+// 구상 단계 프롬프트 — 점수 구조가 정해지기 전, 과제 아이디어 자체를 탐색
+export function buildIdeatePrompt(plan, subjectData, memo) {
+  const m = plan.meta;
+  const stds = subjectData.domains.flatMap(d =>
+    d.standards.filter(s => plan.standards.includes(s.code + (s.subLabel ? `-${s.subLabel}` : '')))
+      .map(s => `- [${s.code}] ${s.text}`)).join('\n');
+
+  return `당신은 중학교 ${m.subject} 교사의 수행평가 구상을 돕는 전문가입니다. (${m.curriculum} 개정 교육과정, ${m.grade}학년 ${m.semester}학기)
+아직 평가 횟수·배점은 정하지 않았습니다. 지금은 "어떤 수행평가를 할지" 아이디어를 넓게 탐색하는 단계입니다.
+
+[이번 학기 성취기준]
+${stds || '(성취기준 미선택 — 과목 전체에서 적합한 것을 골라 제안할 것)'}
+
+[교사가 생각하는 방향·조건]
+${memo || '(특별한 조건 없음)'}
+
+[과업]
+서로 성격이 다른 수행평가 과제 후보를 5개 제안하세요. 후보마다 다음을 포함합니다.
+1. 과제명 (띄어쓰기 없이 짧게, 예: 순환소수탐구보고서)
+2. 개요 — 학생이 무엇을 수행하고 무엇을 제출하는지 2~3문장
+3. 평가 유형 (논술형/프로젝트/포트폴리오/실험·실습/구술·발표/토의·토론 중)
+4. 연결 성취기준 코드
+5. 추천 이유 — 이 성취기준 도달의 증거로 왜 적합한지 1~2문장
+
+[제약]
+- 과제는 성취기준 범위를 벗어나지 않는다.
+- AI 대필이 어렵고 수업 중 과정 확인이 가능한 과제를 우선한다.
+- E수준(최소 성취) 학생도 일정 수준 수행 가능해야 한다.
+- 다섯 후보는 유형·활동 방식이 겹치지 않게 다양하게 구성한다.`;
+}
+
 // 외부 AI(ChatGPT·Claude·Gemini)용 완성 프롬프트 — 벤치마킹 앱의 2단계 워크플로 확장
 export function buildExternalPrompt(plan, subjectData) {
   const rec = buildRecommendPrompt(plan, subjectData);
