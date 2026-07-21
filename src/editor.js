@@ -4,6 +4,8 @@ import {
   loadPlan, savePlan, resetPlan, exportPlanFile, importPlanFile,
   newArea, newElement, newExam, validatePlan
 } from './state.js';
+import { gasSettingsHtml, bindGasSettings, getGasUrl } from './ai.js';
+import { rubricPanelHtml, generateRubric, refreshRubric } from './rubric.js';
 
 let plan = loadPlan();
 let index = null;
@@ -59,6 +61,9 @@ function render() {
     ${cardBasics(m, subjects)}
     ${subjectData ? cardStandards() : ''}
     ${subjectData ? cardRatio() : ''}
+    ${subjectData && plan.performance.areas.length ? `<div class="card"><h3 style="margin:0 0 8px;color:var(--navy-700)">AI 채점기준 도우미 연결 (선택)</h3>
+      <p style="font-size:13px;color:var(--gray-600);margin:0 0 8px">아래 각 영역에서 AI로 평가요소·채점기준을 추천받으려면 한 번만 연결하세요.</p>
+      ${gasSettingsHtml()}</div>` : ''}
     ${subjectData ? plan.performance.areas.map((a, i) => cardAreaDetail(a, i)).join('') : ''}
     <div id="validation"></div>
     ${subjectData ? `<div class="card"><h2>다음 단계</h2>
@@ -69,6 +74,7 @@ function render() {
       </p></div>` : ''}
   `;
   bindEvents();
+  bindGasSettings(rootEl);
   renderValidation();
 }
 
@@ -208,6 +214,7 @@ function cardAreaDetail(a, i) {
     </div>
 
     <h3 style="margin:14px 0 6px">평가요소와 채점기준</h3>
+    ${rubricPanelHtml(a, i)}
     ${a.elements.map((el, ei) => `
       <div style="border:1.5px solid var(--gray-300);border-radius:10px;padding:12px;margin-bottom:10px">
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
@@ -346,6 +353,7 @@ function bindEvents() {
     }
     btn.addEventListener('click', async () => {
       const i = Number(btn.dataset.i), ei = Number(btn.dataset.ei), li = Number(btn.dataset.li);
+      if (act.startsWith('rubric')) return handleRubric(act, btn);
       if (act === 'export') return exportPlanFile(plan);
       if (act === 'reset') {
         if (!confirm('작성 중인 계획을 모두 지울까요?')) return;
@@ -363,6 +371,57 @@ function bindEvents() {
     });
   });
 }
+
+// ── AI 채점기준 도우미 액션 ─────────────────────────────
+async function handleRubric(act, btn) {
+  const i = Number(btn.dataset.i);
+  const area = plan.performance.areas[i];
+  const clone = els => els.map(el => ({
+    name: el.name, points: el.points,
+    levels: el.levels.map(lv => ({ score: lv.score, desc: lv.desc }))
+  }));
+  const status = () => rootEl.querySelector(`[data-rubric-status="${i}"]`);
+
+  if (act === 'rubricToggleSaved') { area._showSaved = !area._showSaved; return render(); }
+  if (act === 'rubricSave') {
+    if (!area.rubricDraft) return;
+    area.savedRubrics = area.savedRubrics || [];
+    area.savedRubrics.push({ label: `초안 ${area.savedRubrics.length + 1}`, elements: clone(area.rubricDraft.elements) });
+    area._showSaved = true;
+    return commitStructural();
+  }
+  if (act === 'rubricApply') {
+    if (area.rubricDraft) area.elements = clone(area.rubricDraft.elements);
+    return commitStructural();
+  }
+  if (act === 'rubricApplySaved') {
+    const sv = (area.savedRubrics || [])[Number(btn.dataset.si)];
+    if (sv) area.elements = clone(sv.elements);
+    return commitStructural();
+  }
+  if (act === 'rubricDelSaved') {
+    (area.savedRubrics || []).splice(Number(btn.dataset.si), 1);
+    return commitStructural();
+  }
+
+  // AI 호출 (rubricGen / rubricRefresh)
+  if (!getGasUrl()) { if (status()) status().textContent = '먼저 위의 AI 서버(GAS) 연결 설정을 완료하세요.'; return; }
+  if (act === 'rubricRefresh' && !area.rubricDraft) return;
+  btn.disabled = true;
+  if (status()) status().textContent = act === 'rubricRefresh' ? '채점기준 새로 뽑는 중…' : '평가요소·채점기준 생성 중… (10~30초)';
+  try {
+    const res = act === 'rubricRefresh'
+      ? await refreshRubric(plan, area, subjectData, area.rubricDraft.elements)
+      : await generateRubric(plan, area, subjectData);
+    area.rubricDraft = { elements: res.elements };
+    commitStructural();
+  } catch (e) {
+    if (status()) status().textContent = `실패: ${e.message}`;
+    btn.disabled = false;
+  }
+}
+
+function commitStructural() { savePlan(plan); render(); }
 
 export function getPlan() { return plan; }
 export function getSubjectData() { return subjectData; }

@@ -74,6 +74,60 @@ ${areas}
 - AI 대필이 어려운, 수업 중 과정 확인이 가능한 과제를 우선한다.`;
 }
 
+// 한 영역의 평가요소·채점기준(루브릭) 생성 프롬프트 — 수행과제·성취기준·배점을 근거로
+function areaContext(plan, area, subjectData) {
+  const codeSet = new Set(area.codes);
+  const stds = subjectData.domains.flatMap(d =>
+    d.standards.filter(s => codeSet.has(s.code + (s.subLabel ? `-${s.subLabel}` : '')) || codeSet.has(s.code))
+      .map(s => {
+        const lv = Object.entries(s.levels || s.criteria || {}).map(([k, v]) => `    ${k}: ${v}`).join('\n');
+        return `- [${s.code}] ${s.text}\n${lv}`;
+      })).join('\n');
+  return `[교과·학년] ${plan.meta.curriculum} 개정 · ${plan.meta.grade}학년 ${plan.meta.subject} ${plan.meta.semester}학기
+[수행평가 영역] ${area.name}(${area.type}) · 영역 만점 ${area.points}점
+[수행과제] ${area.task || '(미작성)'}
+[이 영역이 평가하는 성취기준·성취수준]
+${stds || '(성취기준 미지정)'}`;
+}
+
+export function buildRubricPrompt(plan, area, subjectData) {
+  return `당신은 중학교 ${plan.meta.subject} 수행평가 채점기준 설계 전문가입니다.
+아래 수행평가 영역의 "평가요소"와 "수행수준(채점기준)"을 설계하세요.
+
+${areaContext(plan, area, subjectData)}
+
+[과업]
+1. 평가요소를 2~3개 도출합니다. 반드시 성취기준에서 추출하고 "~하기" 형태로 씁니다.
+2. 각 평가요소의 배점(points)을 정합니다. 모든 평가요소 배점의 합이 정확히 영역 만점(${area.points}점)이 되어야 합니다.
+3. 각 평가요소마다 수행수준(채점기준)을 만듭니다. levels 배열은 상위 점수부터 하위 점수 순서이며, 최고 점수(score)는 그 평가요소의 배점과 같고, 급간은 균등하게 내려갑니다(예: 8·6·4·2). 최저 급간 점수는 2점 이상으로 합니다.
+4. 각 수준의 desc는 관찰 가능한 산출물·정확도·빈도로 구분합니다(예: "세 개를 모두 옳게 나타냈다 / 두 개를 / 한 개를 / 나타내지 못했다").
+
+${COMMON_RULES}
+
+[출력] elements 배열의 JSON만 출력하세요.`;
+}
+
+// 채점기준만 새로고침 — 평가요소 이름·배점·급간 점수는 그대로, desc만 새로 작성
+export function buildRubricRefreshPrompt(plan, area, subjectData, draftElements) {
+  const skeleton = draftElements.map((el, i) =>
+    `${i + 1}. 평가요소 "${el.name}" (배점 ${el.points}점)\n${el.levels.map(lv => `   - ${lv.score}점: (여기에 채점기준 문장)`).join('\n')}`).join('\n');
+  return `당신은 중학교 ${plan.meta.subject} 수행평가 채점기준 설계 전문가입니다.
+아래 평가요소와 배점·급간 점수는 그대로 두고, 각 점수 칸의 "수행수준(채점기준)" 문장(desc)만 새로운 표현으로 다시 작성하세요.
+평가요소 이름·개수·배점·점수는 절대 바꾸지 마세요.
+
+${areaContext(plan, area, subjectData)}
+
+[현재 뼈대 — 이 구조를 그대로 유지]
+${skeleton}
+
+[과업]
+각 점수에 해당하는 채점기준 문장만 새로 작성합니다. 이전과 다른 표현·관점으로 쓰되, 관찰 가능한 산출물·정확도·빈도로 상위→하위 수준을 분명히 구분합니다.
+
+${COMMON_RULES}
+
+[출력] elements 배열의 JSON만 출력하세요. 각 element의 name·points·levels[].score는 위 뼈대와 동일하게 두고 levels[].desc만 채웁니다.`;
+}
+
 // 구상 단계 프롬프트 — 점수 구조가 정해지기 전, 과제 아이디어 자체를 탐색
 export function buildIdeatePrompt(plan, subjectData, memo) {
   const m = plan.meta;
